@@ -23,6 +23,7 @@ class HabitsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupView()
         addSubviews()
         setupTabBar()
         setupConstraints()
@@ -34,8 +35,11 @@ class HabitsViewController: UIViewController {
         tabBarItem.image?.withTintColor(.purple, renderingMode: .alwaysOriginal)
     }
     
-    func addSubviews() {
+    func setupView() {
         view.backgroundColor = .white
+    }
+    
+    func addSubviews() {
         view.addSubview(addButton)
     }
     
@@ -49,5 +53,10 @@ class HabitsViewController: UIViewController {
         ])
     }
     
-    @objc func addButtonPressed() {}
+    @objc func addButtonPressed() {
+        let habitViewController = HabitViewController()
+        let navigationCotroller = UINavigationController(rootViewController: habitViewController)
+        navigationCotroller.modalPresentationStyle = .fullScreen
+        present(navigationCotroller, animated: true)
+    }
 }
