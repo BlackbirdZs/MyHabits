@@ -11,7 +11,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		B2AF61CB3058337600394602 /* Exceptions for "MyHabits" folder in "MyHabits" target */ = {
+		B25E4B7E305AC01B00DC8C25 /* Exceptions for "MyHabits" folder in "MyHabits" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -24,7 +24,7 @@
 		B2AF61BB3058337500394602 /* MyHabits */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				B2AF61CB3058337600394602 /* Exceptions for "MyHabits" folder in "MyHabits" target */,
+				B25E4B7E305AC01B00DC8C25 /* Exceptions for "MyHabits" folder in "MyHabits" target */,
 			);
 			path = MyHabits;
 			sourceTree = "<group>";
@@ -160,6 +160,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.antonkruglov.MyHabits;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -191,6 +195,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.antonkruglov.MyHabits;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
