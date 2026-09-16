@@ -8,55 +8,32 @@
 import UIKit
 
 class HabitsViewController: UIViewController {
-    
-    private lazy var addButton: UIButton = {
-        let addButton = UIButton()
-        addButton.translatesAutoresizingMaskIntoConstraints = false
-        addButton.clipsToBounds = true
-        addButton.setBackgroundImage(UIImage(systemName: "plus"), for: .normal)
-        addButton.tintColor = .purple
-        addButton.addTarget(self, action: #selector(addButtonPressed), for: .touchUpInside)
-        
-        return addButton
-    }()
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupView()
-        addSubviews()
-        setupTabBar()
-        setupConstraints()
+        setupNavigationItem()
     }
-    
-    func setupTabBar() {
-        tabBarItem.title = "Habits"
-        tabBarItem.image = UIImage(systemName: "rectangle.split.1x2.fill")
-        tabBarItem.image?.withTintColor(.purple, renderingMode: .alwaysOriginal)
-    }
-    
+
     func setupView() {
-        view.backgroundColor = .white
+        view.backgroundColor = .systemGroupedBackground
     }
-    
-    func addSubviews() {
-        view.addSubview(addButton)
-    }
-    
-    func setupConstraints() {
-        let safeAreaGuide = view.safeAreaLayoutGuide
 
-        NSLayoutConstraint.activate([
-
-                addButton.topAnchor.constraint(equalTo: safeAreaGuide.topAnchor),
-                addButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
-        ])
+    private func setupNavigationItem() {
+        navigationController?.navigationBar.backgroundColor = .white
+        navigationItem.title = "Сегодня"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .add,
+            target: self,
+            action: #selector(addButtonPressed))
+        navigationItem.rightBarButtonItem?.tintColor = .systemPurple
     }
-    
+
     @objc func addButtonPressed() {
         let habitViewController = HabitViewController()
-        let navigationCotroller = UINavigationController(rootViewController: habitViewController)
-        navigationCotroller.modalPresentationStyle = .fullScreen
-        present(navigationCotroller, animated: true)
+        let navigationController = UINavigationController(rootViewController: habitViewController)
+        navigationController.modalPresentationStyle = .fullScreen
+        present(navigationController, animated: true)
     }
 }

@@ -8,13 +8,18 @@
 import UIKit
 
 class InfoViewController: UIViewController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupTabBar()
+
+        setupView()
+        setupNavigationItem()
     }
-    func setupTabBar() {
-        tabBarItem.title = "Info"
-        tabBarItem.image = UIImage(systemName: "info.circle.fill")
+
+    private func setupView() {
+        view.backgroundColor = .white
+    }
+
+    private func setupNavigationItem() {
+        navigationItem.title = "Информация"
     }
 }

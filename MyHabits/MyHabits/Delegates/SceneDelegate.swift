@@ -16,10 +16,24 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: scene)
 
         let habitsViewController = HabitsViewController()
+        habitsViewController.tabBarItem = UITabBarItem(
+            title: "Привычки",
+            image: UIImage(systemName: "rectangle.split.1x2.fill"),
+            tag: 0
+        )
+        let habitsNavigationController = UINavigationController(rootViewController: habitsViewController)
+
         let infoViewController = InfoViewController()
+        infoViewController.tabBarItem = UITabBarItem(
+            title: "Информация",
+            image: UIImage(systemName: "info.circle.fill"),
+            tag: 1
+        )
+        let infoNavigationController = UINavigationController(rootViewController: infoViewController)
 
         let tabBarController = UITabBarController()
-        tabBarController.viewControllers = [habitsViewController, infoViewController]
+        tabBarController.tabBar.tintColor = .systemPurple
+        tabBarController.viewControllers = [habitsNavigationController, infoNavigationController]
 
         window.rootViewController = tabBarController
         window.makeKeyAndVisible()
