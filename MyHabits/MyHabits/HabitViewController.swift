@@ -8,7 +8,6 @@
 import UIKit
 
 class HabitViewController: UIViewController {
-    private var habitText = ""
 
     private lazy var habitNameLabel: UILabel = {
         let habitNameLabel = UILabel()
@@ -28,7 +27,6 @@ class HabitViewController: UIViewController {
         habitTextField.textColor = .black
         habitTextField.font = UIFont.systemFont(ofSize: 15)
         habitTextField.backgroundColor = .white
-        habitTextField.addTarget(self, action: #selector(habitTextChanged(_:)), for: .editingChanged)
 
         return habitTextField
     }()
@@ -44,11 +42,12 @@ class HabitViewController: UIViewController {
         return colorLabel
     }()
 
-    private lazy var colorCircle: UIView = {
-        let colorCircle = UIView()
+    private lazy var colorCircle: UIButton = {
+        let colorCircle = UIButton()
         colorCircle.translatesAutoresizingMaskIntoConstraints = false
+        colorCircle.clipsToBounds = true
         colorCircle.layer.cornerRadius = 15
-        colorCircle.backgroundColor = .red
+        colorCircle.backgroundColor = .systemPurple
 
         return colorCircle
     }()
@@ -63,6 +62,25 @@ class HabitViewController: UIViewController {
 
         return timeLabel
     }()
+    
+    private lazy var timeLabelDescription: UILabel = {
+        let timeLabelDescription = UILabel()
+        timeLabelDescription.translatesAutoresizingMaskIntoConstraints = false
+        timeLabelDescription.text = "Каждый день в"
+        timeLabelDescription.textColor = .black
+        timeLabelDescription.font = UIFont.systemFont(ofSize: 15)
+        
+        return timeLabelDescription
+    }()
+    
+    private lazy var timeValueLabel: UILabel = {
+        let timeValueLabel = UILabel()
+        timeValueLabel.translatesAutoresizingMaskIntoConstraints = false
+        timeValueLabel.textColor = .systemPurple
+        timeValueLabel.font = UIFont.systemFont(ofSize: 15)
+        
+        return timeValueLabel
+    }()
 
     private lazy var timePicker: UIDatePicker = {
         let timePicker = UIDatePicker()
@@ -72,13 +90,23 @@ class HabitViewController: UIViewController {
 
         return timePicker
     }()
+    
+    private lazy var timeFormatter: DateFormatter = {
+        let timeFormatter = DateFormatter()
+        timeFormatter.locale = Locale(identifier: "en_US")
+        timeFormatter.timeStyle = .short
+        
+        return timeFormatter
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
         addSubviews()
-        setupNavigationItems()
         setupConstraints()
+        setupActions()
+        setupNavigationItems()
+        updateTimeLabel()
     }
 
     func setupView() {
@@ -91,7 +119,9 @@ class HabitViewController: UIViewController {
         view.addSubview(colorLabel)
         view.addSubview(colorCircle)
         view.addSubview(timeLabel)
+        view.addSubview(timeValueLabel)
         view.addSubview(timePicker)
+        view.addSubview(timeLabelDescription)
     }
 
     func setupNavigationItems() {
@@ -122,21 +152,50 @@ class HabitViewController: UIViewController {
 
             timeLabel.topAnchor.constraint(equalTo: colorCircle.bottomAnchor, constant: 16),
             timeLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            
+            timeLabelDescription.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 8),
+            timeLabelDescription.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            
+            timeValueLabel.topAnchor.constraint(equalTo: timeLabelDescription.topAnchor),
+            timeValueLabel.leadingAnchor.constraint(equalTo: timeLabelDescription.trailingAnchor, constant: 3),
 
-            timePicker.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 16),
+            timePicker.topAnchor.constraint(equalTo: timeLabelDescription.bottomAnchor, constant: 16),
             timePicker.centerXAnchor.constraint(equalTo: view.centerXAnchor),
         ])
     }
 
-    @objc func habitTextChanged(_ textField: UITextField) {
-        habitText = habitTextField.text ?? ""
+    private func updateTimeLabel() {
+        let timeString = timeFormatter.string(from: timePicker.date)
+        timeValueLabel.text = "\(timeString)"
+    }
+    
+    @objc private func changeTime() {
+        updateTimeLabel()
     }
 
-    @objc func cancelButtonTapped() {
+    @objc private func cancelButtonTapped() {
         dismiss(animated: true)
     }
 
-    @objc func saveButtonTapped() {
+    @objc private func saveButtonTapped() {
         dismiss(animated: true)
+    }
+    
+    @objc private func colorButtonPressed() {
+        let colorPicker = UIColorPickerViewController()
+        colorPicker.selectedColor = colorCircle.backgroundColor ?? .systemPurple
+        colorPicker.delegate = self
+        present(colorPicker, animated: true)
+    }
+    
+    private func setupActions() {
+        colorCircle.addTarget(self, action: #selector(colorButtonPressed), for: .touchUpInside)
+        timePicker.addTarget(self, action: #selector(changeTime), for: .valueChanged)
+    }
+}
+
+extension HabitViewController: UIColorPickerViewControllerDelegate {
+    func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
+        colorCircle.backgroundColor = viewController.selectedColor
     }
 }
