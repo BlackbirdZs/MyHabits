@@ -8,15 +8,34 @@
 import UIKit
 
 class HabitsViewController: UIViewController {
+    
+    private lazy var habitsCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.backgroundColor = .clear
+        
+        collectionView.register(ProgressCollectionViewCell.self, forCellWithReuseIdentifier: "ProgressCollectionViewCell")
+        collectionView.register(HabitCollectionViewCell.self, forCellWithReuseIdentifier: "HabitCollectionViewCell")
+        
+        return collectionView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupView()
+        addSubviews()
         setupNavigationItem()
     }
 
     func setupView() {
         view.backgroundColor = .systemGroupedBackground
+    }
+    
+    func addSubviews() {
+        view.addSubview(habitsCollectionView)
     }
 
     private func setupNavigationItem() {
