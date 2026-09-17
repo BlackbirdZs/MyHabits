@@ -20,13 +20,13 @@ class HabitCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func prepareForReuse() {
         super.prepareForReuse()
-        
+
         onCircleTap = nil
     }
-    
+
     var onCircleTap: (() -> Void)?
 
     private lazy var habitNameLabel: UILabel = {
@@ -62,7 +62,7 @@ class HabitCollectionViewCell: UICollectionViewCell {
         colorCircle.translatesAutoresizingMaskIntoConstraints = false
         colorCircle.clipsToBounds = true
         colorCircle.layer.cornerRadius = 20
-        
+
         return colorCircle
     }()
 
@@ -81,7 +81,6 @@ class HabitCollectionViewCell: UICollectionViewCell {
 
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            
             habitNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
             habitNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
             habitNameLabel.trailingAnchor.constraint(lessThanOrEqualTo: colorCircle.leadingAnchor, constant: -8),
@@ -98,17 +97,17 @@ class HabitCollectionViewCell: UICollectionViewCell {
             colorCircle.heightAnchor.constraint(equalTo: colorCircle.widthAnchor),
         ])
     }
-    
+
     func setupActions() {
         colorCircle.addTarget(self, action: #selector(circleTapped), for: .touchUpInside)
     }
-    
+
     func configure(with habit: Habit) {
         habitNameLabel.text = habit.name
         habitNameLabel.textColor = habit.color
         habitDescriptionLabel.text = habit.dateString
         habitCounter.text = "Счетчик: \(habit.trackDates.count)"
-        
+
         if habit.isAlreadyTakenToday {
             colorCircle.backgroundColor = habit.color
             colorCircle.layer.borderWidth = 0
@@ -121,7 +120,7 @@ class HabitCollectionViewCell: UICollectionViewCell {
             colorCircle.setImage(nil, for: .normal)
         }
     }
-    
+
     @objc func circleTapped() {
         onCircleTap?()
     }
