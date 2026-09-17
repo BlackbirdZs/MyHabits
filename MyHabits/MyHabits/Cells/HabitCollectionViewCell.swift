@@ -14,6 +14,7 @@ class HabitCollectionViewCell: UICollectionViewCell {
         setupContentView()
         addSubviews()
         setupConstraints()
+        setupActions()
     }
 
     required init?(coder: NSCoder) {
@@ -23,10 +24,10 @@ class HabitCollectionViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        isHidden = false
-        isSelected = false
-        isHighlighted = false
+        onCircleTap = nil
     }
+    
+    var onCircleTap: (() -> Void)?
 
     private lazy var habitNameLabel: UILabel = {
         let habitNameLabel = UILabel()
@@ -41,7 +42,7 @@ class HabitCollectionViewCell: UICollectionViewCell {
         habitDescriptionLabel.translatesAutoresizingMaskIntoConstraints = false
 
         habitDescriptionLabel.font = UIFont.systemFont(ofSize: 10)
-        habitDescriptionLabel.textColor = .systemGray4
+        habitDescriptionLabel.textColor = .systemGray2
 
         return habitDescriptionLabel
     }()
@@ -56,11 +57,11 @@ class HabitCollectionViewCell: UICollectionViewCell {
         return habitCounter
     }()
 
-    private lazy var colorCircle: UIView = {
-        let colorCircle = UIView()
+    private lazy var colorCircle: UIButton = {
+        let colorCircle = UIButton()
         colorCircle.translatesAutoresizingMaskIntoConstraints = false
+        colorCircle.clipsToBounds = true
         colorCircle.layer.cornerRadius = 20
-        colorCircle.backgroundColor = .red
         
         return colorCircle
     }()
@@ -98,8 +99,30 @@ class HabitCollectionViewCell: UICollectionViewCell {
         ])
     }
     
-    @objc func cellTapped() {}
+    func setupActions() {
+        colorCircle.addTarget(self, action: #selector(circleTapped), for: .touchUpInside)
+    }
     
-    @objc func colorCircleTapped() {} 
+    func configure(with habit: Habit) {
+        habitNameLabel.text = habit.name
+        habitNameLabel.textColor = habit.color
+        habitDescriptionLabel.text = habit.dateString
+        habitCounter.text = "Счетчик: \(habit.trackDates.count)"
+        
+        if habit.isAlreadyTakenToday {
+            colorCircle.backgroundColor = habit.color
+            colorCircle.layer.borderWidth = 0
+            colorCircle.setImage(UIImage(systemName: "checkmark"), for: .normal)
+            colorCircle.tintColor = .white
+        } else {
+            colorCircle.backgroundColor = .clear
+            colorCircle.layer.borderColor = habit.color.cgColor
+            colorCircle.layer.borderWidth = 2
+            colorCircle.setImage(nil, for: .normal)
+        }
+    }
     
+    @objc func circleTapped() {
+        onCircleTap?()
+    }
 }
