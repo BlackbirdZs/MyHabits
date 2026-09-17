@@ -100,4 +100,6 @@ class HabitCollectionViewCell: UICollectionViewCell {
     
     @objc func cellTapped() {}
     
+    @objc func colorCircleTapped() {} 
+    
 }

@@ -178,6 +178,11 @@ class HabitViewController: UIViewController {
     }
 
     @objc private func saveButtonTapped() {
+        let name = habitTextField.text ?? ""
+        guard !name.isEmpty else { return }
+        let color = colorCircle.backgroundColor ?? .systemPurple
+        let habit = Habit(name: name, date: timePicker.date, color: color)
+        HabitsStore.shared.habits.append(habit)
         dismiss(animated: true)
     }
     
