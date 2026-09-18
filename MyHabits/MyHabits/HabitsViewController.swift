@@ -13,7 +13,8 @@ class HabitsViewController: UIViewController {
 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .clear
+        collectionView.backgroundColor = .systemGroupedBackground
+        collectionView.showsVerticalScrollIndicator = true
 
         collectionView.register(ProgressCollectionViewCell.self, forCellWithReuseIdentifier: "ProgressCollectionViewCell")
         collectionView.register(HabitCollectionViewCell.self, forCellWithReuseIdentifier: "HabitCollectionViewCell")
@@ -29,33 +30,39 @@ class HabitsViewController: UIViewController {
 
         setupView()
         addSubviews()
-        setupContraints()
+        setupConstraints()
         setupNavigationItem()
     }
 
     func setupView() {
-        view.backgroundColor = .systemGroupedBackground
+        view.backgroundColor = .white
     }
 
     func addSubviews() {
         view.addSubview(habitsCollectionView)
     }
 
-    func setupContraints() {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        habitsCollectionView.reloadData()
+    }
+
+    func setupConstraints() {
         let safeAreaGuide = view.safeAreaLayoutGuide
 
         NSLayoutConstraint.activate([
             habitsCollectionView.topAnchor.constraint(equalTo: safeAreaGuide.topAnchor),
             habitsCollectionView.bottomAnchor.constraint(equalTo: safeAreaGuide.bottomAnchor),
-            habitsCollectionView.leadingAnchor.constraint(equalTo: safeAreaGuide.leadingAnchor),
-            habitsCollectionView.trailingAnchor.constraint(equalTo: safeAreaGuide.trailingAnchor),
+            habitsCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            habitsCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
     }
 
     private func setupNavigationItem() {
         navigationController?.navigationBar.backgroundColor = .white
-        navigationItem.title = "Сегодня"
+        navigationController?.navigationBar.layer.shadowColor = UIColor.systemGray2.cgColor
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.title = "Сегодня"
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .add,
             target: self,
@@ -99,8 +106,20 @@ extension HabitsViewController: UICollectionViewDataSource {
             }
             let habit = HabitsStore.shared.habits[indexPath.item]
             habitCell.configure(with: habit)
+            habitCell.onCircleTap = { [weak self] in
+                guard let self = self else { return }
+                guard !habit.isAlreadyTakenToday else { return }
+                HabitsStore.shared.track(habit)
+                self.habitsCollectionView.reloadData()
+            }
             return habitCell
         }
+    }
+
+    enum Constants {
+        static let progressVerticalSpacing = 20.0
+        static let habitVerticalSpacing = 10.0
+        static let horizontalSpacing = 16.0
     }
 }
 
@@ -110,16 +129,10 @@ extension HabitsViewController: UICollectionViewDelegateFlowLayout {
         if indexPath.section == 0 {
             return CGSize(width: itemWidth, height: 70)
         } else {
-            return CGSize(width: itemWidth, height: 120)
+            return CGSize(width: itemWidth, height: 140)
         }
     }
-    
-    enum Constants {
-        static let progressVerticalSpacing = 20.0
-        static let habitVerticalSpacing = 10.0
-        static let horizontalSpacing = 16.0
-    }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets { if section == 0 {
         UIEdgeInsets(top: Constants.progressVerticalSpacing, left: Constants.horizontalSpacing, bottom: Constants.habitVerticalSpacing, right: Constants.horizontalSpacing)
     } else {
