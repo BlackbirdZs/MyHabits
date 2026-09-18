@@ -24,7 +24,7 @@ class ProgressCollectionViewCell: UICollectionViewCell {
         let textLabel = UILabel()
         textLabel.translatesAutoresizingMaskIntoConstraints = false
         textLabel.text = "Все получится!"
-        textLabel.textColor = .systemGray2
+        textLabel.textColor = .systemGray
         textLabel.font = UIFont.boldSystemFont(ofSize: 13)
 
         return textLabel
@@ -33,7 +33,7 @@ class ProgressCollectionViewCell: UICollectionViewCell {
     private lazy var progressLabel: UILabel = {
         let progressLabel = UILabel()
         progressLabel.translatesAutoresizingMaskIntoConstraints = false
-        progressLabel.textColor = .systemGray2
+        progressLabel.textColor = .systemGray
         progressLabel.font = UIFont.boldSystemFont(ofSize: 13)
 
         return progressLabel
@@ -54,7 +54,7 @@ class ProgressCollectionViewCell: UICollectionViewCell {
         contentView.clipsToBounds = true
     }
 
-   private func addSubviews() {
+    private func addSubviews() {
         contentView.addSubview(textLabel)
         contentView.addSubview(progressLabel)
         contentView.addSubview(progressLine)
@@ -67,15 +67,16 @@ class ProgressCollectionViewCell: UICollectionViewCell {
 
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            textLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            textLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             textLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
 
             progressLabel.topAnchor.constraint(equalTo: textLabel.topAnchor),
             progressLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
 
-            progressLine.topAnchor.constraint(equalTo: textLabel.bottomAnchor, constant: 5),
+            progressLine.topAnchor.constraint(equalTo: textLabel.bottomAnchor, constant: 10),
             progressLine.leadingAnchor.constraint(equalTo: textLabel.leadingAnchor),
             progressLine.trailingAnchor.constraint(equalTo: progressLabel.trailingAnchor),
+            progressLine.heightAnchor.constraint(equalToConstant: 5),
         ])
     }
 }

@@ -32,7 +32,7 @@ class HabitCollectionViewCell: UICollectionViewCell {
     private lazy var habitNameLabel: UILabel = {
         let habitNameLabel = UILabel()
         habitNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        habitNameLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        habitNameLabel.font = UIFont.boldSystemFont(ofSize: 21)
 
         return habitNameLabel
     }()
@@ -40,9 +40,8 @@ class HabitCollectionViewCell: UICollectionViewCell {
     private lazy var habitDescriptionLabel: UILabel = {
         let habitDescriptionLabel = UILabel()
         habitDescriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-
-        habitDescriptionLabel.font = UIFont.systemFont(ofSize: 10)
-        habitDescriptionLabel.textColor = .systemGray2
+        habitDescriptionLabel.font = UIFont.systemFont(ofSize: 13)
+        habitDescriptionLabel.textColor = .systemGray3
 
         return habitDescriptionLabel
     }()
@@ -51,8 +50,8 @@ class HabitCollectionViewCell: UICollectionViewCell {
         let habitCounter = UILabel()
         habitCounter.translatesAutoresizingMaskIntoConstraints = false
 
-        habitCounter.font = UIFont.systemFont(ofSize: 13)
-        habitCounter.textColor = .systemGray4
+        habitCounter.font = UIFont.systemFont(ofSize: 14)
+        habitCounter.textColor = .systemGray2
 
         return habitCounter
     }()
@@ -61,7 +60,7 @@ class HabitCollectionViewCell: UICollectionViewCell {
         let colorCircle = UIButton()
         colorCircle.translatesAutoresizingMaskIntoConstraints = false
         colorCircle.clipsToBounds = true
-        colorCircle.layer.cornerRadius = 20
+        colorCircle.layer.cornerRadius = 17.5
 
         return colorCircle
     }()
@@ -88,12 +87,13 @@ class HabitCollectionViewCell: UICollectionViewCell {
             habitDescriptionLabel.topAnchor.constraint(equalTo: habitNameLabel.bottomAnchor, constant: 5),
             habitDescriptionLabel.leadingAnchor.constraint(equalTo: habitNameLabel.leadingAnchor),
 
+            habitCounter.topAnchor.constraint(equalTo: habitDescriptionLabel.bottomAnchor, constant: 8),
             habitCounter.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
             habitCounter.leadingAnchor.constraint(equalTo: habitNameLabel.leadingAnchor),
 
-            colorCircle.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
+            colorCircle.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -30),
             colorCircle.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            colorCircle.widthAnchor.constraint(equalToConstant: 40),
+            colorCircle.widthAnchor.constraint(equalToConstant: 35),
             colorCircle.heightAnchor.constraint(equalTo: colorCircle.widthAnchor),
         ])
     }
