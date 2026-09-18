@@ -108,9 +108,9 @@ extension HabitsViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let itemWidth = collectionView.bounds.width - 32
         if indexPath.section == 0 {
-            return CGSize(width: itemWidth, height: 60)
+            return CGSize(width: itemWidth, height: 70)
         } else {
-            return CGSize(width: itemWidth, height: 100)
+            return CGSize(width: itemWidth, height: 120)
         }
     }
     

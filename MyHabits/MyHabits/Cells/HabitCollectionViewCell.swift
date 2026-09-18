@@ -80,15 +80,15 @@ class HabitCollectionViewCell: UICollectionViewCell {
 
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            habitNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+            habitNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             habitNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
             habitNameLabel.trailingAnchor.constraint(lessThanOrEqualTo: colorCircle.leadingAnchor, constant: -8),
 
-            habitDescriptionLabel.topAnchor.constraint(equalTo: habitNameLabel.bottomAnchor, constant: 5),
+            habitDescriptionLabel.topAnchor.constraint(equalTo: habitNameLabel.bottomAnchor, constant: 1),
             habitDescriptionLabel.leadingAnchor.constraint(equalTo: habitNameLabel.leadingAnchor),
 
-            habitCounter.topAnchor.constraint(equalTo: habitDescriptionLabel.bottomAnchor, constant: 8),
-            habitCounter.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
+            habitCounter.topAnchor.constraint(equalTo: habitDescriptionLabel.bottomAnchor, constant: 15),
+            habitCounter.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
             habitCounter.leadingAnchor.constraint(equalTo: habitNameLabel.leadingAnchor),
 
             colorCircle.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -30),

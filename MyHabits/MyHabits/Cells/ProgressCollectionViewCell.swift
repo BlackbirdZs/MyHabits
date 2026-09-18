@@ -24,7 +24,7 @@ class ProgressCollectionViewCell: UICollectionViewCell {
         let textLabel = UILabel()
         textLabel.translatesAutoresizingMaskIntoConstraints = false
         textLabel.text = "Все получится!"
-        textLabel.textColor = .systemGray
+        textLabel.textColor = .systemGray2
         textLabel.font = UIFont.boldSystemFont(ofSize: 13)
 
         return textLabel
@@ -33,7 +33,7 @@ class ProgressCollectionViewCell: UICollectionViewCell {
     private lazy var progressLabel: UILabel = {
         let progressLabel = UILabel()
         progressLabel.translatesAutoresizingMaskIntoConstraints = false
-        progressLabel.textColor = .systemGray
+        progressLabel.textColor = .systemGray2
         progressLabel.font = UIFont.boldSystemFont(ofSize: 13)
 
         return progressLabel
@@ -73,10 +73,10 @@ class ProgressCollectionViewCell: UICollectionViewCell {
             progressLabel.topAnchor.constraint(equalTo: textLabel.topAnchor),
             progressLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
 
-            progressLine.topAnchor.constraint(equalTo: textLabel.bottomAnchor, constant: 10),
+            progressLine.topAnchor.constraint(equalTo: textLabel.bottomAnchor, constant: 15),
             progressLine.leadingAnchor.constraint(equalTo: textLabel.leadingAnchor),
             progressLine.trailingAnchor.constraint(equalTo: progressLabel.trailingAnchor),
-            progressLine.heightAnchor.constraint(equalToConstant: 5),
+            progressLine.heightAnchor.constraint(equalToConstant: 7),
         ])
     }
 }
